@@ -1,23 +1,23 @@
-public class MenuItem
+public class FoodItem
 {
     public string Name { get; set; }
     public double Price { get; set; }
     public string Description { get; set; }
     public string ImageUrl { get; set; }
-    public bool disabled { get; set; }
+    public bool available { get; set; }
 
-    public MenuItem(string name, double price, string description, string imgUrl)
+    public FoodItem(string name, double price, string description, string imgUrl)
     {
         Name = name;
         Price = price;
         Description = description;
         ImageUrl = imgUrl;
-        disabled = false;
+        available = true;
     }
 
     public override string ToString()
     {
-        return $"{Name} (${Price:0.00}) {(disabled ? "(UNAVAILABLE)" : "")}\nImage:{ImageUrl}\n{Description}";
+        return $"{Name} (${Price:0.00}) {(!available ? "(UNAVAILABLE)" : "")}\nImage:{ImageUrl}\n{Description}";
     }
 
     public void setName(string newName)
@@ -49,15 +49,16 @@ public class MenuItem
         Console.ReadLine();
     }
 
-    public void toggleDisabled()
+    public void toggleAvailability()
     {
-        disabled = !disabled;
-        Console.WriteLine($"{Name} is now {(disabled ? "hidden" : "available for order")}.");
+        available = !available;
+        Console.WriteLine($"{Name} is now {(!available ? "hidden" : "available for order")}.");
         Console.ReadLine();
     }
 
     public void updateItemInformation()
     {
+        Console.WriteLine();
         Console.WriteLine("What would you like to update?");
         Console.WriteLine("1. Name");
         Console.WriteLine("2. Price");

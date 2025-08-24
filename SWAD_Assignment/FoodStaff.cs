@@ -1,12 +1,10 @@
-class FoodStaff
+class Staff: Account
 {
-    public string Name { get; set; }
-    public Restaurant restaurant { get; set; }
+    public FoodStall foodStall { get; set; }
 
-    public FoodStaff(string name, Restaurant restaurant)
+    public Staff(string email, string password, string name, FoodStall foodStall): base(email, password, name)
     {
-        Name = name;
-        this.restaurant = restaurant;
+        this.foodStall = foodStall;
     }
 
     public override string ToString()

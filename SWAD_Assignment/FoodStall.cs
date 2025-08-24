@@ -1,41 +1,43 @@
-public class Restaurant
+public class FoodStall
 {
     public string Name;
-    public List<MenuItem> menuItems;
+    public List<FoodItem> foodItems;
 
-    public Restaurant(string name)
+    public FoodStall(string name)
     {
         Name = name;
-        menuItems = new();
+        foodItems = new();
     }
 
-    public Restaurant(string name, List<MenuItem> menuItems)
+    public FoodStall(string name, List<FoodItem> foodItems)
     {
         Name = name;
-        this.menuItems = menuItems;
+        this.foodItems = foodItems;
     }
 
-    public void addMenuItem(MenuItem newMenuItem)
+    public void addMenuItem(FoodItem newMenuItem)
     {
-        menuItems.Add(newMenuItem);
+        foodItems.Add(newMenuItem);
+        Console.WriteLine($"{newMenuItem.Name} has been added.");
+        Console.ReadLine();
     }
 
     public void displayMenu()
     {
         var index = 1;
         Console.WriteLine($"{this}'s menu");
-        foreach (var item in menuItems)
+        foreach (var item in foodItems)
         {
-            Console.WriteLine($"{index}. {item} ");
+            Console.WriteLine($"{index}.{item} ");
             Console.WriteLine();
             index++;
         }
         Console.WriteLine("--------------------------------------------");
     }
 
-    public MenuItem selectMenuItem(int index)
+    public FoodItem selectMenuItem(int index)
     {
-        return menuItems[index - 1];
+        return foodItems[index - 1];
     }
 
     public override string ToString()
@@ -45,11 +47,13 @@ public class Restaurant
 
     public void modifyItem()
     {
+        Console.WriteLine();
         Console.WriteLine("What item do you want to modify?");
         var input = Console.ReadLine();
         try
         {
-            MenuItem menuItem = selectMenuItem(int.Parse(input));
+            FoodItem menuItem = selectMenuItem(int.Parse(input));
+            Console.WriteLine();
             Console.WriteLine(menuItem);
             Console.WriteLine();
             Console.WriteLine("What would you like to do?");
@@ -61,11 +65,11 @@ public class Restaurant
             input = Console.ReadLine();
             if (input == "0") return;
             else if (input == "1") menuItem.updateItemInformation();
-            else if (input == "2") menuItem.toggleDisabled();
+            else if (input == "2") menuItem.toggleAvailability();
             else if (input == "3")
             {
                 string itemName = menuItem.Name;
-                menuItems.Remove(menuItem);
+                foodItems.Remove(menuItem);
                 Console.WriteLine($"{itemName} has been deleted.");
                 Console.ReadLine();
             }
@@ -100,7 +104,7 @@ public class Restaurant
                 Console.WriteLine("Upload product photo: ");
                 string imgUrl = Console.ReadLine();
 
-                MenuItem newMenuItem = new(name, price, description, imgUrl);
+                FoodItem newMenuItem = new(name, price, description, imgUrl);
                 addMenuItem(newMenuItem);
                 break;
             }
