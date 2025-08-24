@@ -20,85 +20,33 @@ public class FoodItem
         return $"{Name} (${Price:0.00}) {(!available ? "(UNAVAILABLE)" : "")}\nImage:{ImageUrl}\n{Description}";
     }
 
-    public void setName(string newName)
+    public string setName(string newName)
     {
-        Console.Write($"{Name} has been changed to ");
         Name = newName;
-        Console.Write($"{newName}.");
-        Console.WriteLine();
+        return Name;
     }
 
-    public void setPrice(double newPrice)
+    public double setPrice(double newPrice)
     {
         Price = newPrice;
-        Console.WriteLine($"Price updated to ${newPrice}");
-        Console.ReadLine();
+        return Price;
     }
 
-    public void setDescription(string newDescription)
+    public string setDescription(string newDescription)
     {
         Description = newDescription;
-        Console.WriteLine($"Description updated to: {newDescription}");
-        Console.ReadLine();
+        return Description;
     }
 
-    public void setImageUrl(string newImageUrl)
+    public string setImageUrl(string newImageUrl)
     {
         ImageUrl = newImageUrl;
-        Console.WriteLine($"Image URL updated to: {newImageUrl}");
-        Console.ReadLine();
+        return ImageUrl;
     }
 
-    public void toggleAvailability()
+    public bool toggleAvailability()
     {
         available = !available;
-        Console.WriteLine($"{Name} is now {(!available ? "hidden" : "available for order")}.");
-        Console.ReadLine();
-    }
-
-    public void updateItemInformation()
-    {
-        Console.WriteLine();
-        Console.WriteLine("What would you like to update?");
-        Console.WriteLine("1. Name");
-        Console.WriteLine("2. Price");
-        Console.WriteLine("3. Description");
-        Console.WriteLine("4. Product photo");
-        Console.WriteLine("0. Cancel");
-        var input = Console.ReadLine();
-
-        if (input == "0") return;
-        else if (input == "1") updateName();
-        else if (input == "2") updatePrice();
-        else if (input == "3") updateDescription();
-        else if (input == "4") updatePhoto();
-    }
-
-    public void updateName()
-    {
-        Console.WriteLine("Enter new name: ");
-        string name = Console.ReadLine();
-        setName(name);
-    }
-
-    public void updatePrice()
-    {
-        Console.WriteLine("Enter new price: ");
-        double price = double.Parse(Console.ReadLine());
-        setPrice(price);
-    }
-
-    public void updateDescription()
-    {
-        Console.WriteLine("Enter new description: ");
-        string description = Console.ReadLine();
-        setDescription(description);
-    }
-
-        public void updatePhoto()
-    {
-        Console.WriteLine("Upload new product photo:  ");
-        string imgUrl = Console.ReadLine();
-        setImageUrl(imgUrl);
+        return available;
     }
 }

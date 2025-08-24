@@ -15,27 +15,18 @@ public class FoodStall
         this.foodItems = foodItems;
     }
 
-    public void addMenuItem(FoodItem newMenuItem)
+    public string addFoodItem(FoodItem fi)
     {
-        foodItems.Add(newMenuItem);
-        Console.WriteLine($"{newMenuItem.Name} has been added.");
-        Console.ReadLine();
+        foodItems.Add(fi);
+        return fi.Name;
     }
 
-    public void displayMenu()
+    public List<FoodItem> getMenu()
     {
-        var index = 1;
-        Console.WriteLine($"{this}'s menu");
-        foreach (var item in foodItems)
-        {
-            Console.WriteLine($"{index}.{item} ");
-            Console.WriteLine();
-            index++;
-        }
-        Console.WriteLine("--------------------------------------------");
+        return foodItems;
     }
 
-    public FoodItem selectMenuItem(int index)
+    public FoodItem selectFoodItem(int index)
     {
         return foodItems[index - 1];
     }
@@ -45,73 +36,8 @@ public class FoodStall
         return Name;
     }
 
-    public void modifyItem()
+    public void deleteItem(FoodItem fi)
     {
-        Console.WriteLine();
-        Console.WriteLine("What item do you want to modify?");
-        var input = Console.ReadLine();
-        try
-        {
-            FoodItem menuItem = selectMenuItem(int.Parse(input));
-            Console.WriteLine();
-            Console.WriteLine(menuItem);
-            Console.WriteLine();
-            Console.WriteLine("What would you like to do?");
-            Console.WriteLine("1. Update item information");
-            Console.WriteLine("2. Change availability");
-            Console.WriteLine("3. Delete item");
-            Console.WriteLine("0. Cancel");
-
-            input = Console.ReadLine();
-            if (input == "0") return;
-            else if (input == "1") menuItem.updateItemInformation();
-            else if (input == "2") menuItem.toggleAvailability();
-            else if (input == "3")
-            {
-                string itemName = menuItem.Name;
-                foodItems.Remove(menuItem);
-                Console.WriteLine($"{itemName} has been deleted.");
-                Console.ReadLine();
-            }
-        }
-        catch (IndexOutOfRangeException)
-        {
-            Console.WriteLine("index out of range");
-            Console.WriteLine("Invalid option.");
-        }
-        catch
-        {
-            Console.WriteLine("Invalid option.");
-        }
-     }
-
-    public void createNewItem()
-    {
-        while (true)
-        {
-            try
-            {
-                Console.WriteLine("Enter name: (Or enter 0 to cancel)");
-                string name = Console.ReadLine();
-                if (name == "0") break;
-
-                Console.WriteLine("Enter price: ");
-                double price = double.Parse(Console.ReadLine());
-
-                Console.WriteLine("Enter description: ");
-                string description = Console.ReadLine();
-
-                Console.WriteLine("Upload product photo: ");
-                string imgUrl = Console.ReadLine();
-
-                FoodItem newMenuItem = new(name, price, description, imgUrl);
-                addMenuItem(newMenuItem);
-                break;
-            }
-            catch
-            {
-                Console.WriteLine("Error. Please try again.");
-            }
-        }
+        foodItems.Remove(fi);
     }
 }
