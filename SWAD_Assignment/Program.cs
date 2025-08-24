@@ -23,11 +23,10 @@ while (true)
 
 void updateMenu(Staff account)
 {
-    
     while (true)
     {
         Console.WriteLine();
-        displayMenu(account.foodStall);
+        getMenu(account.foodStall);
         Console.WriteLine("1. Modify existing item");
         Console.WriteLine("2. Add new item");
         Console.WriteLine("0. Return");
@@ -96,8 +95,7 @@ void updateName(FoodItem fi)
     Console.WriteLine("Enter new name: ");
     string name = Console.ReadLine();
     string newName = editMenu.updateName(fi, name);
-    Console.WriteLine($"Name updated to {newName}");
-    Console.ReadLine();
+    printSuccessMessage($"Name updated to {newName}");
 }
 
 void updatePrice(FoodItem fi)
@@ -105,8 +103,7 @@ void updatePrice(FoodItem fi)
     Console.WriteLine("Enter new price: ");
     double price = double.Parse(Console.ReadLine());
     double newPrice = editMenu.updatePrice(fi, price);
-    Console.WriteLine($"Price updated to ${price}");
-    Console.ReadLine();
+    printSuccessMessage($"Price updated to ${price}");
 }
 
 void updateDescription(FoodItem fi)
@@ -114,8 +111,7 @@ void updateDescription(FoodItem fi)
     Console.WriteLine("Enter new description: ");
     string description = Console.ReadLine();
     string newDescription = editMenu.updateDescription(fi, description);
-    Console.WriteLine($"Description updated to {newDescription}");
-    Console.ReadLine();
+    printSuccessMessage($"Description updated to {newDescription}");
 }
 
 void updatePhoto(FoodItem fi)
@@ -123,22 +119,24 @@ void updatePhoto(FoodItem fi)
     Console.WriteLine("Upload new product photo:  ");
     string imgUrl = Console.ReadLine();
     string newPhoto = editMenu.updatePhoto(fi, imgUrl);
-    Console.WriteLine($"Product photo updated to {newPhoto}");
-    Console.ReadLine();
+    printSuccessMessage($"Product photo updated to {newPhoto}");
 }
 
 void toggleAvailability(FoodItem fi)
 {
     bool itemAvailability = editMenu.toggleAvailability(fi);
-    Console.WriteLine($"{fi.Name} is now {(!itemAvailability ? "hidden" : "available for order")}.");
-    Console.ReadLine();
+    printSuccessMessage($"{fi.Name} is now {(!itemAvailability ? "hidden" : "available for order")}.");
 }
 
 void deleteItem(FoodStall fs, FoodItem fi)
 {
-    string itemName = fi.Name;
-    editMenu.deleteItem(fs, fi);
-    Console.WriteLine($"{itemName} has been deleted.");
+    string itemName = editMenu.deleteItem(fs, fi);
+    printSuccessMessage($"{itemName} has been deleted.");
+}
+
+void printSuccessMessage(string message)
+{
+    Console.WriteLine(message);
     Console.ReadLine();
 }
 
@@ -163,7 +161,7 @@ void createNewItem(FoodStall fs)
 
             FoodItem newFoodItem = new(name, price, description, imgUrl);
             string itemName = editMenu.addFoodItem(fs, newFoodItem);
-            Console.WriteLine($"{itemName} has been added to {fs}");
+            printSuccessMessage($"{itemName} has been added to {fs}");
             break;
         }
         catch
@@ -173,11 +171,16 @@ void createNewItem(FoodStall fs)
     }
 }
 
-void displayMenu(FoodStall fs)
+void getMenu(FoodStall fs)
 {
     List<FoodItem> foodItems = editMenu.getMenu(fs);
+    displayMenu(fs.Name, foodItems);
+}
+
+void displayMenu(string name, List<FoodItem> foodItems)
+{
     var index = 1;
-    Console.WriteLine($"{fs}'s menu");
+    Console.WriteLine($"{name}'s menu");
     foreach (var item in foodItems)
     {
         Console.WriteLine($"{index}.{item} ");

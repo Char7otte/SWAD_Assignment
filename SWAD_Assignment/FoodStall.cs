@@ -15,13 +15,13 @@ public class FoodStall
         this.foodItems = foodItems;
     }
 
-    public string addFoodItem(FoodItem fi)
+    public string addMenuItem(FoodItem fi)
     {
         foodItems.Add(fi);
         return fi.Name;
     }
 
-    public List<FoodItem> getMenu()
+    public List<FoodItem> getAllFoodItems()
     {
         return foodItems;
     }
@@ -36,8 +36,10 @@ public class FoodStall
         return Name;
     }
 
-    public void deleteItem(FoodItem fi)
+    public string deleteItem(FoodItem fi)
     {
+        string itemName = fi.Name;
         foodItems.Remove(fi);
+        return itemName;
     }
 }

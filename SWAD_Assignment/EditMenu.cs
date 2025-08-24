@@ -30,18 +30,18 @@
         return fi.setImageUrl(url);
     }
 
-    public void deleteItem(FoodStall fs, FoodItem fi)
+    public string deleteItem(FoodStall fs, FoodItem fi)
     {
-        fs.deleteItem(fi);
+        return fs.deleteItem(fi);
     }
 
     public string addFoodItem(FoodStall fs, FoodItem fi)
     {
-        return fs.addFoodItem(fi);
+        return fs.addMenuItem(fi);
     }
 
     public List<FoodItem> getMenu(FoodStall fs)
     {
-        return fs.getMenu();
+        return fs.getAllFoodItems();
     }
  }
